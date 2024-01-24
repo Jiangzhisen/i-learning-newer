@@ -1,9 +1,19 @@
-import { Button } from "@/components/ui/button";
+// src/app/page.tsx
+import { signOut } from "../auth";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Button>Click me</Button>
-    </main>
+    <div>
+      <h1>Home Page</h1>
+      <h2>Unavailable without auth</h2>
+      <form
+        action={async () => {
+          "use server";
+          await signOut();
+        }}
+      >
+        <button>Log Out</button>
+      </form>
+    </div>
   );
 }
