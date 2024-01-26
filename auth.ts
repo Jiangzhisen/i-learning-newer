@@ -1,34 +1,34 @@
-// src/auth.ts
 import NextAuth from "next-auth";
-import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
-import { User } from "@/lib/definitions";
+import bcrypt from "bcrypt";
 
-export const { signIn, signOut } = NextAuth({
+import { User } from "@/lib/definitions";
+import { authConfig } from "./auth.config";
+import { getUser } from "./actions/user";
+
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
       async authorize(credentials) {
-        if (credentials.id && credentials.password) {
+        if (credentials.email && credentials.password) {
           // Add you backend code here
-          // let loginRes = await backendLogin(credentials.id, credentials.password)
-          let loginRes = {
-            success: true,
-            data: {
-              user: {
-                ID: "john_doe",
-                NAME: "John Doe",
-                EMAIL: "email@email.email",
-              },
-            },
-          };
-          // Failed logging in
-          if (!loginRes.success) return null;
-          // Successful log in
+          const email = credentials.email as string;
+          const result = await getUser({ email: email });
+          if (!result) return null;
+          const password = credentials.password as string;
+          const passwordMatch = await bcrypt.compare(password, result.password);
+          if (!passwordMatch) return null;
+
           const user = {
-            id: loginRes.data.user.ID ?? "",
-            name: loginRes.data.user.NAME ?? "",
-            email: loginRes.data.user.EMAIL ?? "",
+            id: result.uuid ?? "",
+            name: result.name ?? "",
+            email: result.email ?? "",
           } as User;
           return user;
         }
@@ -37,7 +37,7 @@ export const { signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       session.user = token.user as User;
       return session;
     },

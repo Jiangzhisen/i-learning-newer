@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
+import AuthWrapper from "@/auth_wrapper";
 
-export const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "i Learning Newer",
@@ -23,10 +21,13 @@ export default function RootLayout({
       <body
         className={cn(
           "flex justify-center items-center w-screen h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          inter.className
         )}
       >
+        {/* <AuthWrapper> */}
+        {/* Wrapping the entire app with AuthWrapper */}
         {children}
+        {/* </AuthWrapper> */}
       </body>
     </html>
   );

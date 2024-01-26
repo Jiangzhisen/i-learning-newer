@@ -1,7 +1,11 @@
 // src/app/page.tsx
-import { signOut } from "../auth";
+import { auth, signOut } from "@/auth";
 
 export default async function Home() {
+  console.log("Server Side Rendering");
+  const session = await auth(); // calling session
+  console.log(session); // console log to read session
+
   return (
     <div>
       <h1>Home Page</h1>

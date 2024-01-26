@@ -1,8 +1,10 @@
 // src/app/login/page.tsx
 "use client";
 
-import { authenticate } from "@/lib/actions";
 import { useFormState } from "react-dom";
+import Link from "next/link";
+
+import { authenticate } from "@/lib/actions";
 
 export default function Page() {
   // authenticate() method will be declared later
@@ -10,14 +12,22 @@ export default function Page() {
   return (
     <div>
       <h1>Log in Page</h1>
-      <form className="flex flex-col" action={dispatch}>
-        <input className="bg-blue-300 text-black" name="id"></input>
+      <form className="flex flex-col space-y-5" action={dispatch}>
+        <label htmlFor="email">Email</label>
         <input
-          className="bg-yellow-300 text-black"
+          className="border rounded-lg"
+          name="email"
+          type="email"
+          placeholder="Your Email"
+        ></input>
+        <label htmlFor="password">Password</label>
+        <input
+          className="border rounded-md"
           name="password"
           type="password"
+          placeholder="Your password"
         ></input>
-        <button>Log In</button>
+        <button className="border rounded-xl">Log In</button>
         <p>{errorMsg}</p>
       </form>
     </div>
