@@ -1,10 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import clsx from "clsx";
-
-import { signOut } from "@/auth";
 import { logOut } from "@/lib/actions";
 import NavLinks from "./nav-links";
 import CourseSelector from "./course-selector";
