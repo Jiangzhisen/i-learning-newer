@@ -36,4 +36,15 @@ model User {
   name    String?
   posts   Post[]
   profile Profile?
+  courses Course[]
+}
+
+model Course {
+  id      Int @id @default(autoincrement())
+  uuid    String @unique
+  title   String @db.Char(100)
+  code    String 
+  department String @db.VarChar(50)
+  professor User @relation(fields: [professorId], references: [id])
+  professorId Int
 }

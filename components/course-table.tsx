@@ -55,7 +55,7 @@ export default function CourseTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 mt-10">
         <Input
           placeholder="Filter Course Title..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -67,7 +67,7 @@ export default function CourseTable<TData, TValue>({
       </div>
       <div className="rounded-md border">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-sky-100">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {

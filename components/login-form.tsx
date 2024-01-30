@@ -1,46 +1,31 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
-// import { authenticate } from "@/actions/auth";
+import { useFormState } from "react-dom";
+
+import { authenticate } from "@/lib/actions";
 
 export default function LoginForm() {
-  //   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-
+  const [errorMsg, dispatch] = useFormState(authenticate, undefined);
   return (
-    <form action={""} className="flex flex-col space-y-8">
+    <form className="flex flex-col space-y-5" action={dispatch}>
       <label htmlFor="email">Email</label>
       <input
-        className="border"
-        type="email"
+        className="border rounded-lg"
         name="email"
-        placeholder="Email"
+        type="email"
+        placeholder="Your Email"
         required
-      />
+      ></input>
       <label htmlFor="password">Password</label>
       <input
-        className="border"
-        type="password"
+        className="border rounded-md"
         name="password"
-        placeholder="Password"
+        type="password"
+        placeholder="Your password"
         required
-      />
-      <button
-        className="border rounded-xl h-10 w-2/6 text-white bg-slate-900"
-        type="submit"
-      >
-        Login
-      </button>
-      <div
-        className="flex h-8 items-end space-x-1"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        {/* {errorMessage && (
-          <>
-            <p className="text-sm text-red-500">{errorMessage}</p>
-          </>
-        )} */}
-      </div>
+      ></input>
+      <button className="border rounded-xl">Log In</button>
+      <p>{errorMsg}</p>
     </form>
   );
 }
